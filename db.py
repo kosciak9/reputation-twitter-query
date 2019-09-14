@@ -15,8 +15,15 @@ class Tweet(Model):
 
     @property
     def avg_gross(self):
-        likes = [delta.likes for delta in self.deltas]
-        return np.mean(np.diff(likes))
+        if slef.deltas.count() < 1:
+            return 0
+        likes = np.array([np.float(delta.likes) for delta in self.deltas])
+        likedeltas = np.diff(likes)
+        times = np.array([delta.timestamp for delta in self.deltas])
+        timedeltas = np.array(np.diff(times))
+        print(timedeltas)
+        secs = np.array([np.float(td.seconds)/np.float(60*5) for td in timedeltas])
+        return np.mean(np.divide(likedeltas, secs))
 
 
 class TweetDelta(Model):
