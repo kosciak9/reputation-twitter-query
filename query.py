@@ -24,3 +24,17 @@ def scrap():
     for twt in twts:
         tweet = Tweet.get_or_create(id=twt.tweet_id)
         dt = TweetDelta.create(tweet=tweet, likes=twt.likes)
+
+
+def pick(threshold=200, min_probes=5):
+    """Pick trending tweets and return them
+     - arg threshold - minimum likes count avg rise
+     - arg min_probes - minimum times tweet has been probed
+     - returns tweets array
+    """
+    twts = Tweet.select()
+    tweets = []
+    for twt in twts:
+        if twt.deltas.count() >= min_probes and twt.avg_gross >= threshold:
+            tweets.append(twt)
+    return tweets
