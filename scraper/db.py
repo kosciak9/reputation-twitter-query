@@ -15,7 +15,7 @@ class Tweet(Model):
 
     @property
     def avg_gross(self):
-        if slef.deltas.count() < 1:
+        if self.deltas.count() < 2:
             return 0
         likes = np.array([np.float(delta.likes) for delta in self.deltas])
         likedeltas = np.diff(likes)

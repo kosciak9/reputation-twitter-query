@@ -1,5 +1,5 @@
 import datetime
-from db import Tweet, TweetDelta
+from .db import Tweet, TweetDelta
 from twitterscraper import query_tweets
 
 

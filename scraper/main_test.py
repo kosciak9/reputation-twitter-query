@@ -1,5 +1,5 @@
-from db import db, Tweet, TweetDelta
-from query import scrap, pick
+from .db import db, Tweet, TweetDelta
+from .query import scrap, pick
 
 """Probe tweets 6 times in a row
 """

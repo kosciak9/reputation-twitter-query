@@ -10,5 +10,12 @@ source env/bin/activate
 pip install -r requirements.txt
 
 # run `proof of concept' app
-python main_test.py
+python scraper/main_test.py
+```
+
+Start scraper routine:
+
+```py
+from scraper import run
+run(5) # arg is probing interval in minutes
 ```
