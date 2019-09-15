@@ -16,8 +16,7 @@ class Tweet(Model):
     category = CharField(default='Polityka')
     tweet_url = CharField(default='')
     html_content = TextField(default='')
-    data_posted = TextField(default='')
-    created_at = DateTimeField(default=datetime.datetime.now())
+    date_posted = DateTimeField(default=datetime.datetime.now())
 
     @property
     def avg_gross(self):
@@ -36,9 +35,8 @@ class Tweet(Model):
                 'category': self.category,
                 'tweet_url': self.tweet_url,
                 'html_content': self.html_content,
-                'data_posted': self.data_posted,
-                'created_at': self.created_at.isoformat(),
-                'likes_delta': self.avg_gross
+                'date_posted': self.date_posted.isoformat(),
+                'likes_delta': round(self.avg_gross)
                 }
         return d
 

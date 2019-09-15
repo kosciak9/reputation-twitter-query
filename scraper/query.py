@@ -26,8 +26,7 @@ def scrap():
         tweet = Tweet.get_or_create(id=twt.tweet_id)
         tweet[0].tweet_url = twt.tweet_url
         tweet[0].html_content = twt.html
-        tweet[0].data_posted = twt.text
-        tweet[0].created_at = twt.timestamp
+        tweet[0].date_posted = twt.timestamp
         tweet[0].save()
         dt = TweetDelta.create(tweet=tweet[0], likes=twt.likes)
 
