@@ -1,7 +1,8 @@
 import datetime, numpy as np
 from peewee import (SqliteDatabase, Model,
                     CharField, IntegerField,
-                    DateTimeField, ForeignKeyField)
+                    DateTimeField, ForeignKeyField,
+                    TextField)
 
 
 db = SqliteDatabase('scraps.db')
@@ -12,6 +13,11 @@ class Tweet(Model):
         database = db
 
     id = CharField(primary_key=True)
+    category = CharField(default='Polityka')
+    tweet_url = CharField(default='')
+    html_content = TextField(default='')
+    data_posted = TextField(default='')
+    created_at = DateTimeField(default=datetime.datetime.now())
 
     @property
     def avg_gross(self):

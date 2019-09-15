@@ -22,7 +22,11 @@ def scrap():
     bgdate = (datetime.date.today() - datetime.timedelta(days=3))
     twts = query_tweets('Polityka', begindate=bgdate, enddate=datetime.date.today())
     for twt in twts:
-        tweet = Tweet.get_or_create(id=twt.tweet_id)
+        tweet = Tweet.get_or_create(id=twt.tweet_id,
+                tweet_url=twt.tweet_url,
+                html_content=twt.html,
+                data_posted=twt.text,
+                created_at=twt.timestamp)
         dt = TweetDelta.create(tweet=tweet[0], likes=twt.likes)
 
 

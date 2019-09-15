@@ -1,6 +1,6 @@
 from flask import Flask
 from threading import Thread
-from scraper import run, Tweet, db
+from scraper import run, Tweet, TweetDelta, db
 
 app = Flask(__name__)
 
@@ -17,6 +17,7 @@ def routine():
 
 if __name__ == "__main__":
     db.connect()
+    db.create_tables([Tweet, TweetDelta])
     t = Thread(target=routine)
     t.daemon = True
     t.start()
