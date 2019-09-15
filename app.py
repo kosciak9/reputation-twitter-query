@@ -1,6 +1,7 @@
+import json
 from flask import Flask
 from threading import Thread
-from scraper import run, Tweet, TweetDelta, db
+from scraper import run, Tweet, TweetDelta, db, add_tweet
 
 app = Flask(__name__)
 
@@ -8,7 +9,10 @@ app = Flask(__name__)
 def promote(tweet_id):
     tweet = Tweet.get_or_create(id=tweet_id)
     tweet[0].promote()
-    return tweet[0].serialize()
+    twt = tweet[0].serialize()
+    add_tweet(twt)
+    tweet[0].delete()
+    return json.dumps(twt)
 
 def routine():
     """Run scraper
@@ -21,4 +25,4 @@ if __name__ == "__main__":
     t = Thread(target=routine)
     t.daemon = True
     t.start()
-    app.run(host='0.0.0.0', port=1337)
+    app.run(host='0.0.0.0', port=1338)

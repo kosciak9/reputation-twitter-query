@@ -1,4 +1,4 @@
-import json, datetime, numpy as np
+import datetime, numpy as np
 from peewee import (SqliteDatabase, Model,
                     CharField, IntegerField,
                     DateTimeField, ForeignKeyField,
@@ -40,7 +40,7 @@ class Tweet(Model):
                 'created_at': self.created_at.isoformat(),
                 'likes_delta': self.avg_gross
                 }
-        return json.dumps(d)
+        return d
 
     def promote(self):
         time = datetime.datetime.now()

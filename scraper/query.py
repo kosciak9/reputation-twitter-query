@@ -1,4 +1,4 @@
-import datetime
+import datetime, requests
 from .db import Tweet, TweetDelta
 from twitterscraper import query_tweets
 
@@ -12,8 +12,9 @@ def get_tweet(tweet_id):
 def add_tweet(tweet):
     """Send tweet over to core app
     """
+    r = requests.post('http://reputation-backend.herokuapp.com/tweets', json=tweet)
     print(tweet)
-    pass
+    print(r)
 
 
 def scrap():
