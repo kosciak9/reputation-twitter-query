@@ -1,4 +1,4 @@
-import datetime, numpy as np
+import json, datetime, numpy as np
 from peewee import (SqliteDatabase, Model,
                     CharField, IntegerField,
                     DateTimeField, ForeignKeyField,
@@ -27,9 +27,20 @@ class Tweet(Model):
         likedeltas = np.diff(likes)
         times = np.array([delta.timestamp for delta in self.deltas])
         timedeltas = np.array(np.diff(times))
-        print(timedeltas)
-        secs = np.array([np.float(td.seconds)/np.float(60*5) for td in timedeltas])
-        return np.mean(np.divide(likedeltas, secs))
+        secs = np.array([np.float(td.seconds)/np.float(60*5) or np.float(1) for td in timedeltas])
+        return float(np.mean(np.divide(likedeltas, secs)))
+
+    def serialize(self):
+        d = {
+                'tw_id': self.id,
+                'category': self.category,
+                'tweet_url': self.tweet_url,
+                'html_content': self.html_content,
+                'data_posted': self.data_posted,
+                'created_at': self.created_at.isoformat(),
+                'likes_delta': self.avg_gross
+                }
+        return json.dumps(d)
 
     def promote(self):
         time = datetime.datetime.now()

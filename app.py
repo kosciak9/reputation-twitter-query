@@ -8,7 +8,7 @@ app = Flask(__name__)
 def promote(tweet_id):
     tweet = Tweet.get_or_create(id=tweet_id)
     tweet[0].promote()
-    return 'OK'
+    return tweet[0].serialize()
 
 def routine():
     """Run scraper
