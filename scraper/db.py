@@ -25,6 +25,15 @@ class Tweet(Model):
         secs = np.array([np.float(td.seconds)/np.float(60*5) for td in timedeltas])
         return np.mean(np.divide(likedeltas, secs))
 
+    def promote(self):
+        time = datetime.datetime.now()
+        timedelta = datetime.timedelta(minutes=5)
+        likes = 300
+        for i in range(1, 6):
+            TweetDelta.create(tweet=self, likes=likes)
+            time += timedelta
+            likes += 200
+
 
 class TweetDelta(Model):
     class Meta:
